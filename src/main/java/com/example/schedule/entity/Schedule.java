@@ -1,5 +1,6 @@
 package com.example.schedule.entity;
 
+import com.example.schedule.dto.ScheduleRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,15 +18,15 @@ public class Schedule {
     private Date updatedAt;   // Date = YYYY-MM-DD 의 형태
     private String password;  // VARCHAR = String
 
-//    public Schedule () {
-//        this.id = id;
-//        this.name = name;
-//        this.dating = dating;
-//        this.comment = comment;
-//        this.createdAt = createdAt;
-//        this.updatedAt = updatedAt;
-//        this.password = password;
-//    }
+    public Schedule (Long id, ScheduleRequestDto dto) {
+        this.id = id;
+        this.name = name;
+        this.dating = dating;
+        this.comment = comment;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.password = password;
+    }
 
 
 }
