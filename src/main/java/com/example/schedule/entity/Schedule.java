@@ -2,7 +2,6 @@ package com.example.schedule.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor // 모든 필드에 생성자를 자동생성
 public class Schedule {
-    @Setter
+
     private Long id;          // 임의의 추가 숫자
     private String name;      // VARCHAR = String
     private LocalDate dating;      // Date = YYYY-MM-DD 의 형태
