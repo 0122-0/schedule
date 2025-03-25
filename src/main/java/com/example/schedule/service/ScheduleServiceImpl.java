@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
-        Schedule schedule = new Schedule(dto.getName(), dto.getDating(), dto.getComment(), dto.getPassword());
+        Schedule schedule = new Schedule(dto.getName(), dto.getComment(), dto.getPassword());
 
         return scheduleRepository.saveSchedule(schedule);
     }
@@ -42,59 +41,39 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
 
-        Schedule shcedule = scheduleRepository.findShceduleById(id);
+        Schedule schedule = scheduleRepository.findShceduleById(id);
 
-        if (shcedule == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id =" + id);
-        }
-
-        return new ScheduleResponseDto(shcedule);
+        return new ScheduleResponseDto(schedule);
     }
 
     @Override
-    public ScheduleResponseDto updateSchedule(Long id, LocalDate dating, String comment, String password) {
-
-        Schedule shcedule = scheduleRepository.findShceduleById(id);
-
-        if (shcedule == null) {
+    public ScheduleResponseDto updateComment(Long id, String comment, String password) {
+        Schedule schedule = scheduleRepository.findShceduleById(id);
+        if (id == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id =" + id);
         }
 
-        if (dating == null || comment == null || password == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"THe dating and commet and password are required values.");
+        if  (schedule.getPassword().equals(password))
+        int updatedRow = scheduleRepository.updateComment(id, comment, password, updatedAt);
+        if (updatedRow == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"THe commet are required values.");
         }
 
-        shcedule.update(dating, comment, password);
-        return new ScheduleResponseDto(shcedule);
+
+        return
     }
 
-    @Override
-    public ScheduleResponseDto updateDating(Long id, LocalDate dating, String comment, String password) {
 
-        Schedule shcedule = scheduleRepository.findShceduleById(id);
 
-        if (shcedule == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id =" + id);
-        }
-
-        if (dating == null || comment != null || password != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The dating and commet and password are required values.");
-        }
-
-        shcedule.updateDating(dating);
-
-        return new ScheduleResponseDto(shcedule);
-    }
 
     @Override
     public void deleteSchedule(Long id) {
-        Schedule shcedule = scheduleRepository.findShceduleById(id);
 
-        if (shcedule == null) {
+        int deletedRow = scheduleRepository.deletSchedule(id);
+
+        if (deletedRow == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id =" + id);
         }
-
-        scheduleRepository.deletSchedule(id);
 
     }
 }
