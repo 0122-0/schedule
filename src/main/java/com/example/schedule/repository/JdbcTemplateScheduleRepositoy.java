@@ -24,7 +24,7 @@ public class JdbcTemplateScheduleRepositoy implements ScheduleRepository {
     @Override
     public ScheduleResponseDto saveSchedule(Schedule schedule) {
         // INSERT Query 직접 입력하지 않아도 된다.
-        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(JdbcTemplate);
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("schedule").usingGeneratedKeyColumns("id");
 
         Map<String, Object> parameters = new HashMap<>();
@@ -35,7 +35,7 @@ public class JdbcTemplateScheduleRepositoy implements ScheduleRepository {
         // 저장 후 생성된 key 값 Number 타입으로 변환 하는 메서드
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 
-        return new ScheduleResponseDto(key.longValue(), schedule.getName(), schedule.getDating(), schedule.getComment(), schedule.getPassword());
+        return new ScheduleResponseDto(schedule);
     }
 
     @Override
