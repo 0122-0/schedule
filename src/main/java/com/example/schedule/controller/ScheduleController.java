@@ -45,21 +45,12 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> updateSchedule(
-            @PathVariable Long id,
-            @RequestBody ScheduleRequestDto dto
-    ) {
-
-        return  new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getDating(), dto.getComment(), dto.getPassword()), HttpStatus.OK);
-    }
-
     @PatchMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> updateDating(
+    public ResponseEntity<ScheduleResponseDto> updateComment(
             @PathVariable Long id,
             @RequestBody ScheduleRequestDto dto
     ) {
-        return new ResponseEntity<>(scheduleService.updateDating(id, dto.getDating(), dto.getComment(), dto.getPassword()), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.updateComment(id, dto.getComment(), dto.getPassword()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
