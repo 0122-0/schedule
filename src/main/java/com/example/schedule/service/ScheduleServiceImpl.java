@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -47,27 +48,38 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public ScheduleResponseDto updateComment(Long id, String comment, String password) {
+    public ScheduleResponseDto updateComment(Long id, String comment, String password, LocalDateTime updatedAt) {
+
         Schedule schedule = scheduleRepository.findShceduleById(id);
+
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id =" + id);
         }
 
-        if  (schedule.getPassword().equals(password))
+        if  (!schedule.getPassword().equals(password)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 잘못되었습니다.");
+        }
+
         int updatedRow = scheduleRepository.updateComment(id, comment, password, updatedAt);
+
         if (updatedRow == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"THe commet are required values.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The commet are required values.");
         }
 
 
-        return
+        return new ScheduleResponseDto(scheduleRepository.findShceduleById(id));
     }
 
 
 
 
     @Override
-    public void deleteSchedule(Long id) {
+    public void deleteSchedule(Long id, String password) {
+        Schedule schedule = scheduleRepository.findShceduleById(id);
+
+        if  (!schedule.getPassword().equals(password)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 잘못되었습니다.");
+        }
 
         int deletedRow = scheduleRepository.deletSchedule(id);
 
