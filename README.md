@@ -47,7 +47,8 @@
 
 0️⃣ Lv 0. API와 ERD 만들기 !
 
-![API 1](https://github.com/user-attachments/assets/0d9d254c-30e5-46f4-8bba-983442f43de0)
+![API 2](https://github.com/user-attachments/assets/36239827-6b97-4d77-93a1-3fdb4c28da2f)
+
 
 ![ERD 1](https://github.com/user-attachments/assets/1d2cb641-aac3-479b-b95b-3b9b7b8aaebb)
 
@@ -59,6 +60,7 @@
   - 할일, 작성자명, 비밀번호, 작성,수정일 저장
  
 - 전체 일정 조회.
+  - 수정일 기준 내림차순 정렬
 
 - 단일 일정 조회.
   -  id 값을 입력하여 단일 일정 조회 가능
