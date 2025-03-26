@@ -51,7 +51,8 @@ public class JdbcTemplateScheduleRepositoy implements ScheduleRepository {
 
     @Override
     public List<ScheduleResponseDto> findAllSchedule() {
-        return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
+        return jdbcTemplate.query("select * from schedule order by updated_at desc", scheduleRowMapper());
+
     }
 
     @Override
@@ -59,12 +60,12 @@ public class JdbcTemplateScheduleRepositoy implements ScheduleRepository {
         List<Schedule> result = jdbcTemplate.query("select * from schedule where id = ?", scheduleRowMapperV2(), id);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+id));
     }
-
-    @Override
-    public ScheduleResponseDto findCommentById(Long id) {
-        List<ScheduleResponseDto> result = jdbcTemplate.query("select * from schedule where id = ?", scheduleRowMapper(), id);
-        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+id));
-    }
+//어디에 쓰이는지 까먹어서...
+//    @Override
+//    public ScheduleResponseDto findCommentById(Long id) {
+//        List<ScheduleResponseDto> result = jdbcTemplate.query("select * from schedule where id = ?", scheduleRowMapper(), id);
+//        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+id));
+//    }
 
     @Override
     public int updateComment(Long id, String comment, String password, LocalDateTime updatedAt) {

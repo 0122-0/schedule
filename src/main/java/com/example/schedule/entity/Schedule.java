@@ -12,10 +12,11 @@ public class Schedule {
     private Long id;          // 임의의 추가 숫자
     private String name;      // VARCHAR = String
     private String comment;   // VARCHAR = String
-    private LocalDateTime createdAt;   // Date = YYYY-MM-DD 의 형태
-    private LocalDateTime updatedAt;   // Date = YYYY-MM-DD 시간초.. 의 형태
+    private LocalDateTime createdAt;   // TimeStamp = YYYY-MM-DD 의 형태
+    private LocalDateTime updatedAt;   // TimeStamp = YYYY-MM-DD 시간초.. 의 형태
     private String password;  // VARCHAR = String
 
+    //스케줄 생성자
     public Schedule (String name, String comment, String password) {
 
         this.name = name;

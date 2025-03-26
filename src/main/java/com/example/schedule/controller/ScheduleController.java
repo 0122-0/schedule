@@ -27,6 +27,7 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
+    //포스트 맵핑을 이용한 스케줄 생성
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
 
@@ -34,18 +35,21 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
 
+    //겟 맵핑을 이용한 일정 전체 조회
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAllSchedule(){
 
         return new ResponseEntity<>(scheduleService.findAllSchedule(),HttpStatus.OK);
     }
 
+    //겟 맵핑을 이용한 일정 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
 
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
 
+    //패치 맵핑을 이용한 일정 내용 변경
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> updateComment(
             @PathVariable Long id,
@@ -54,6 +58,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.updateComment(id, dto.getComment(), dto.getPassword(), LocalDateTime.now()), HttpStatus.OK);
     }
 
+    //딜리트 맵핑을 이용한 스케줄 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto dto) {
 

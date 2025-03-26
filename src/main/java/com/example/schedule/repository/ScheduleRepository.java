@@ -14,8 +14,8 @@ public interface ScheduleRepository {
 
     Schedule findShceduleById(Long id);
 
-    ScheduleResponseDto findCommentById(Long id);
-
+//어디에 쓰이는지 까먹어서...
+//    ScheduleResponseDto findCommentById(Long id);
 
     int updateComment(Long id, String comment, String password,LocalDateTime updatedAt);
 
